@@ -1,4 +1,7 @@
 using AuthAppAPI.Data;
+using AuthAppAPI.Repositories.Implementation;
+using AuthAppAPI.Repositories.Interface;
+using AuthAppAPI.Security;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,14 +9,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add Context
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DatabaseConnection"));
 });
+
+// Add Repositories
+builder.Services.AddScoped<IUserRepository,UserRepository>();
+
+// I feel like these services are better off being instantiated once.
+builder.Services.AddSingleton<PasswordHasher>();
+builder.Services.AddSingleton<PasswordVerifier>();
+
 
 var app = builder.Build();
 
