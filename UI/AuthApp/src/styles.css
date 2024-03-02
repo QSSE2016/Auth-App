@@ -1,1 +1,34 @@
-/* You can add global styles to this file, and also import other style files */
+*,*::before,*::after {
+    box-sizing: border-box;
+    font-family: "Ojuju", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+
+body {
+    height: 100vh;
+    height: 100dvh;
+    width: 100vw;
+    width: 100dvw;
+    background: #1A2980;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(#26D0CE, #1A2980);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(#26D0CE, #1A2980); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background-size: 200% 200%;
+    
+    overflow: hidden;
+    color: black;
+    animation: gradient-anim 20s infinite alternate;
+    margin: 0;
+}
+
+@keyframes gradient-anim {
+    0% {
+        background-position: 0% 100%;
+    }
+    100% {
+        background-position: 0% 0%;
+    }
+    
+}
+
