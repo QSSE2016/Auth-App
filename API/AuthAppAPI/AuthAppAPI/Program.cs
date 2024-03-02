@@ -21,6 +21,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 // Add Repositories
 builder.Services.AddScoped<IUserRepository,UserRepository>();
+builder.Services.AddScoped<ILoginRepository,LoginRepository>();
 
 // I feel like these services are better off being instantiated once.
 builder.Services.AddSingleton<PasswordHasher>();
