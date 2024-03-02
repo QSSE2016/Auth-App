@@ -1,14 +1,14 @@
 <div class="centering-container">
-    <form>
+    <form [formGroup]="loginForm" (submit)="login()">
         <h1> Log In </h1>
         <div>
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
+            <input type="email" placeholder="Email" formControlName="email">
+            <input type="password" placeholder="Password" formControlName="password">
         </div>
-        <button type="submit">Log In</button>
+        <button type="submit">Submit</button>
     </form>
 </div>
 <div class="auth-container">
-    <span> Currently authenticating (when possible) with: Cookies </span>
-    <button class="auth-button"> Authenticate with JWT </button>
+    <span> Currently authenticating (when possible) with: {{currAuthMethod}} </span>
+    <button class="auth-button" (click)="changeAuthMethod()"> Authenticate with {{oppositeOfCurrentAuth}} </button>
 </div>
