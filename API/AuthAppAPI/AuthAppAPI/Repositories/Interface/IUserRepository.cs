@@ -6,5 +6,6 @@ namespace AuthAppAPI.Repositories.Interface
     public interface IUserRepository
     {
         Task<User?> CreateAsync(CreateUserRequestDto payload);
+        Task<List<User>> GetAll();
     }
 }

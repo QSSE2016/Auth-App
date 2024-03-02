@@ -3,6 +3,7 @@ using AuthAppAPI.Models;
 using AuthAppAPI.Models.DTOS;
 using AuthAppAPI.Repositories.Interface;
 using AuthAppAPI.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace AuthAppAPI.Repositories.Implementation
 {
@@ -33,6 +34,11 @@ namespace AuthAppAPI.Repositories.Implementation
             await context.AddAsync(user);
             await context.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<List<User>> GetAll()
+        {
+            return await context.Users.ToListAsync();
         }
     }
 }

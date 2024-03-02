@@ -22,5 +22,18 @@ namespace AuthAppAPI.Controllers
             User? savedUser = await repo.CreateAsync(request);
             return savedUser == null ? Conflict() : Ok();
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetUsers()
+        {
+            List<User> users = await repo.GetAll();
+            List<UserDto> userDtos = users.ConvertAll<UserDto>(user => new UserDto()
+            {
+                Email = user.Email,
+                HashedPassword = user.HashedPassword,
+                Username = user.Username,
+            });
+            return Ok(userDtos);
+        }
     }
 }
