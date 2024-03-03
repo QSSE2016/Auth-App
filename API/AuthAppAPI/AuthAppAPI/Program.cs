@@ -10,7 +10,6 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.AddRouting(options => options.LowercaseUrls = true);
 
 // Add Context
@@ -29,13 +28,6 @@ builder.Services.AddSingleton<PasswordVerifier>();
 
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
 
 // Avoid CORS bull (again, normally you should set boundaries here. No one should have access to this stuff but you.)
 app.UseCors(options =>
