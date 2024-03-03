@@ -12,8 +12,8 @@ namespace AuthAppAPI.Controllers
         [HttpGet("cookies")]
         public IActionResult CookiesAuth()
         {
-            string? token = Request.Cookies["AuthCookie"];
-            if (token == null)
+            Request.Cookies.TryGetValue("AuthCookie",out string? value);
+            if (value == null)
                 return Unauthorized();
 
             return Ok();

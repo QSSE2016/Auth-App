@@ -33,7 +33,17 @@ namespace AuthAppAPI.Controllers
                 {
                     Expires = DateTimeOffset.Now.AddSeconds(20),
                     Domain = "localhost",
-                    //HttpOnly = true
+                    Path = "/",
+
+                    // These two are necessary for blocking an error which stops the creation of this cookie
+                    // Essentially because we are going from https to http (the cookie that is), the response is unsafe.
+                    // For now there is a warning about this that in future Chrome versions this will result in an error
+                    // Regardless know that these two should probably be "strict" and "true" for actual https applications.
+                    SameSite = SameSiteMode.None,
+                    Secure = true,
+
+                    //
+                    HttpOnly = true
                 });
             }
 
