@@ -13,6 +13,7 @@ export class LoginScreenComponent implements OnDestroy {
     loginForm: FormGroup
     loginSub?: Subscription
     cookieAuthSub?: Subscription
+    jwtAuthSub?: Subscription
     alreadySubmittedRequest = false // prevent multiple requests on log in
 
     constructor(private middleman: MiddleManService) {
@@ -21,15 +22,7 @@ export class LoginScreenComponent implements OnDestroy {
          password: new FormControl('',[Validators.required])
       })
 
-      this.cookieAuthSub = this.middleman.authWithCookie().subscribe({
-        next: (value) => {
-          alert("Signed in with cookie!")
-        },
-        error: (value) => {
-           console.log(value.val)
-           alert("No cookie found (must have expired).")
-        }
-      })
+      this.authenticateViaCredentials()
     }
 
 
@@ -49,6 +42,7 @@ export class LoginScreenComponent implements OnDestroy {
             alert("Incorrect Password.")
           else {
             alert("Logged in!")
+            localStorage.setItem("jwtToken",value.jwtToken) // store the jwt token 
           }
           this.alreadySubmittedRequest = false
         },
@@ -63,8 +57,36 @@ export class LoginScreenComponent implements OnDestroy {
 
     changeAuthMethod() {
       this.currAuthMethod = this.oppositeOfCurrentAuth
+      this.authenticateViaCredentials()
+    }
 
-      // Check if we can log in instantly with new method (later)
+    authenticateViaCredentials() {
+      if(this.currAuthMethod == 'JWT')
+        this.jwtAuth()
+      else
+        this.cookieAuth()
+    }
+
+    cookieAuth() {
+      this.cookieAuthSub = this.middleman.authWithCookie().subscribe({
+        next: (value) => {
+          alert("Signed in with cookie!")
+        },
+        error: (value) => {
+           console.log("No cookie found (must have expired).")
+        }
+      })
+    }
+
+    jwtAuth() {
+      this.jwtAuthSub = this.middleman.authWithJWT().subscribe({
+        next: (value) => {
+          alert("Signed in with JWT!")
+        },
+        error: (value) => {
+           console.log("No JWT found.")
+        }
+      })
     }
 
 

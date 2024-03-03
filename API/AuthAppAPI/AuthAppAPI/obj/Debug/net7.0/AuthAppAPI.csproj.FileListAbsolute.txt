@@ -74,3 +74,4 @@ C:\Users\ma dude\OneDrive\Υπολογιστής\Programming\asp\API\AuthAppAPI\
 C:\Users\ma dude\OneDrive\Υπολογιστής\Programming\asp\API\AuthAppAPI\AuthAppAPI\obj\Debug\net7.0\AuthAppAPI.pdb
 C:\Users\ma dude\OneDrive\Υπολογιστής\Programming\asp\API\AuthAppAPI\AuthAppAPI\obj\Debug\net7.0\AuthAppAPI.genruntimeconfig.cache
 C:\Users\ma dude\OneDrive\Υπολογιστής\Programming\asp\API\AuthAppAPI\AuthAppAPI\obj\Debug\net7.0\ref\AuthAppAPI.dll
+C:\Users\ma dude\OneDrive\Υπολογιστής\Programming\asp\API\AuthAppAPI\AuthAppAPI\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

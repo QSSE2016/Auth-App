@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AuthAppAPI.Controllers
 {
@@ -19,6 +20,7 @@ namespace AuthAppAPI.Controllers
             return Ok();
         }
 
+        [Authorize]
         [HttpGet("jwt")]
         public IActionResult JwtAuth()
         {
