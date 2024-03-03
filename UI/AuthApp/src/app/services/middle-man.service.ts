@@ -11,7 +11,7 @@ export class MiddleManService {
   constructor(private http: HttpClient) { }
 
   loginCheck(email: string,password: string) {
-    return this.http.post(this.url + "login",{
+    return this.http.post(this.url + "login", {
       email: email,
       password: password
     })

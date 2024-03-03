@@ -25,6 +25,7 @@ builder.Services.AddScoped<ILoginRepository,LoginRepository>();
 // I feel like these services are better off being instantiated once.
 builder.Services.AddSingleton<PasswordHasher>();
 builder.Services.AddSingleton<PasswordVerifier>();
+builder.Services.AddSingleton<JwtGenerator>();
 
 
 var app = builder.Build();
