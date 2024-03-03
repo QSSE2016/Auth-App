@@ -30,12 +30,10 @@ builder.Services.AddSingleton<JwtGenerator>();
 
 var app = builder.Build();
 
-// Avoid CORS bull (again, normally you should set boundaries here. No one should have access to this stuff but you.)
+// Avoid CORS bull (accept requests of any kind and allow credentials aka cookie related stuff)
 app.UseCors(options =>
 {
-    options.AllowAnyHeader();
-    options.AllowAnyOrigin();
-    options.AllowAnyMethod();
+    options.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowCredentials();
 });
 
 app.UseHttpsRedirection();

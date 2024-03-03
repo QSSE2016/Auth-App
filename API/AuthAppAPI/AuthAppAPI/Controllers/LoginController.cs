@@ -24,16 +24,16 @@ namespace AuthAppAPI.Controllers
             LoginStatus status = await repo.Login(request);
             if (status == LoginStatus.UserNotFound)
                 return NotFound();
-
-            // Set Cookie (for value im using a JWT token, prep for later)
+        
+            // Set Cookie for web browser (localhost:4200 or in general the port for the angular app) , (for value im using a JWT token, prep for later)
             if(status == LoginStatus.Success)
             {
                 string jwtToken = generator.Generate(request.Email);
                 Response.Cookies.Append("AuthCookie", jwtToken, new CookieOptions()
                 {
-                    Expires = DateTimeOffset.Now.AddSeconds(15),
-                    Secure = true,
-                    HttpOnly = true
+                    Expires = DateTimeOffset.Now.AddSeconds(20),
+                    Domain = "localhost",
+                    //HttpOnly = true
                 });
             }
 

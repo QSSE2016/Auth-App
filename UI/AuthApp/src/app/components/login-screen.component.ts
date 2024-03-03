@@ -12,12 +12,23 @@ export class LoginScreenComponent implements OnDestroy {
     currAuthMethod: string = 'JWT'
     loginForm: FormGroup
     loginSub?: Subscription
+    cookieAuthSub?: Subscription
     alreadySubmittedRequest = false // prevent multiple requests on log in
 
     constructor(private middleman: MiddleManService) {
       this.loginForm = new FormGroup({
          email: new FormControl('',[Validators.email,Validators.required]),
          password: new FormControl('',[Validators.required])
+      })
+
+      this.cookieAuthSub = this.middleman.authWithCookie().subscribe({
+        next: (value) => {
+          alert("Signed in with cookie!")
+        },
+        error: (value) => {
+           console.log(value.val)
+           alert("No cookie found (must have expired).")
+        }
       })
     }
 
@@ -42,6 +53,7 @@ export class LoginScreenComponent implements OnDestroy {
           this.alreadySubmittedRequest = false
         },
         error: (value) => {
+          console.log(value)
           alert("The email you entered doesn't correspond to an account. Please enter another one.")
           this.alreadySubmittedRequest = false
         }
@@ -63,5 +75,6 @@ export class LoginScreenComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this.loginSub?.unsubscribe()
+        this.cookieAuthSub?.unsubscribe()
     }
 }
