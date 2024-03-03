@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup,FormControl, Validators } from '@angular/forms';
 import { MiddleManService } from '../services/middle-man.service';
 import { Subscription } from 'rxjs';
@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './login-screen.component.html',
   styleUrls: ['./login-screen.component.css']
 })
-export class LoginScreenComponent implements OnDestroy {
+export class LoginScreenComponent implements OnDestroy,OnInit {
     currAuthMethod: string = 'JWT'
     loginForm: FormGroup
     loginSub?: Subscription
@@ -21,7 +21,11 @@ export class LoginScreenComponent implements OnDestroy {
          email: new FormControl('',[Validators.email,Validators.required]),
          password: new FormControl('',[Validators.required])
       })
+    }
 
+    ngOnInit(): void {
+      let storageConfig = localStorage.getItem("auth-method")
+      this.currAuthMethod = storageConfig == null ? 'Cookie' : storageConfig
       this.authenticateViaCredentials()
     }
 
@@ -58,6 +62,7 @@ export class LoginScreenComponent implements OnDestroy {
     changeAuthMethod() {
       this.currAuthMethod = this.oppositeOfCurrentAuth
       this.authenticateViaCredentials()
+      localStorage.setItem("auth-method",this.currAuthMethod)
     }
 
     authenticateViaCredentials() {
